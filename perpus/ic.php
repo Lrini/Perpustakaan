@@ -61,6 +61,15 @@
               ?></a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="ca.php">
+              <?php 
+                  $koneksi = mysqli_connect("localhost","root","","perpus"); 
+                  $menu=mysqli_query($koneksi,"select * from kategori where kode_kategori = 6");
+                  while($data= $menu->fetch_assoc()){
+                  echo $data['nama']; }
+              ?></a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="../index.php">Log OUT</a>
           </li>
         </ul>
