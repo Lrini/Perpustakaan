@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Mar 2021 pada 04.51
--- Versi server: 10.4.17-MariaDB
--- Versi PHP: 7.4.15
+-- Waktu pembuatan: 29 Mar 2021 pada 16.08
+-- Versi server: 10.4.11-MariaDB
+-- Versi PHP: 7.2.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -41,7 +42,8 @@ CREATE TABLE `buku` (
 --
 
 INSERT INTO `buku` (`SIBN`, `nama_buku`, `kode_kategori`, `pengarang`, `stock`, `gambar`) VALUES
-(4, 'Algoritma Dan Pemograman ', 3, 'L', 12, 'WhatsApp Image 2021-02-28 at 15.06.49.jpeg');
+(4, 'Algoritma Dan Pemograman ', 4, 'L', 12, 'WhatsApp Image 2021-02-28 at 15.06.49.jpeg'),
+(5, 'Kalkulus', 4, 'Immanuel', 10, 'brochure-flyer-paper-poster-logo-trademark-text-building-office-buildi.jpg');
 
 -- --------------------------------------------------------
 
@@ -70,7 +72,10 @@ CREATE TABLE `kategori` (
 --
 
 INSERT INTO `kategori` (`kode_kategori`, `nama`) VALUES
-(3, 'Office Management (OM)');
+(3, 'Office Management '),
+(4, 'Informatica computer'),
+(5, 'Business Administration'),
+(6, 'Computerized Accounting');
 
 -- --------------------------------------------------------
 
@@ -149,15 +154,18 @@ CREATE TABLE `siswa` (
   `jurusan` int(8) NOT NULL,
   `no_tlp` varchar(12) NOT NULL,
   `dosen_pa` varchar(60) NOT NULL,
-  `foto` text NOT NULL
+  `foto` text NOT NULL,
+  `user` varchar(30) NOT NULL,
+  `pass` varchar(30) NOT NULL,
+  `status` enum('aktif','tidak') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `siswa`
 --
 
-INSERT INTO `siswa` (`nim`, `nama`, `alamat`, `jurusan`, `no_tlp`, `dosen_pa`, `foto`) VALUES
-(10007, 'L', 'kuanino', 3, '6281339067', 'Immanuel', 'WhatsApp Image 2021-02-28 at 15.33.00.jpeg');
+INSERT INTO `siswa` (`nim`, `nama`, `alamat`, `jurusan`, `no_tlp`, `dosen_pa`, `foto`, `user`, `pass`, `status`) VALUES
+(10007, 'L', 'kuanino', 3, '6281339067', 'Immanuel', 'WhatsApp Image 2021-02-28 at 15.33.00.jpeg', 'user', 'user', 'aktif');
 
 --
 -- Indexes for dumped tables
@@ -201,13 +209,13 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT untuk tabel `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `SIBN` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SIBN` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `kode_kategori` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `kode_kategori` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `login`
