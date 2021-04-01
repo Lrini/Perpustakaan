@@ -1,10 +1,14 @@
 <?php
 session_start ();
-include "function.php";
+if(!isset($_SESSION['username'])){
+  ?>
+  <script type="text/javascript">
+    alert('login dulu');window.location='admin.php';
+  </script>
+  <?php
+}else{
 include "header.php";
-$tgl_pinjam = date("Y-m-d");
-$tujuh_hari = strtotime("+7 day", strtotime($tgl_pinjam));
-$kembali = date("Y-m-d", $tujuh_hari);
+include "function.php";
 ?>
        <?php if(isset($_GET['r'])): ?>
                     <?php
@@ -190,3 +194,6 @@ $kembali = date("Y-m-d", $tujuh_hari);
   
 </body>
 </html>
+<?php
+}
+?>

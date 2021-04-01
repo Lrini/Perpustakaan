@@ -1,7 +1,14 @@
 <?php
 session_start ();
-include "function.php";
+if(!isset($_SESSION['username'])){
+  ?>
+  <script type="text/javascript">
+    alert('login dulu');window.location='admin.php';
+  </script>
+  <?php
+}else{
 include "header.php";
+include "function.php";
 ?>
        <?php if(isset($_GET['r'])): ?>
                     <?php
@@ -89,3 +96,6 @@ include "header.php";
   
 </body>
 </html>
+<?php
+}
+?>

@@ -1,5 +1,12 @@
 <?php
 session_start ();
+if(!isset($_SESSION['username'])){
+  ?>
+  <script type="text/javascript">
+    alert('login dulu');window.location='admin.php';
+  </script>
+  <?php
+}else{
 include "header.php";
 include "function.php";
 ?>
@@ -63,3 +70,6 @@ include "function.php";
   
 </body>
 </html>
+<?php
+}
+?>
