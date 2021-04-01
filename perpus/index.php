@@ -1,3 +1,15 @@
+<?php
+session_start ();
+if(!isset($_SESSION['username'])){
+  ?>
+  <script type="text/javascript">
+    alert('login dulu');window.location='index.php';
+  </script>
+  <?php
+}else{
+include "header.php";
+include "function.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -137,3 +149,5 @@
 </body>
 
 </html>
+<?php
+}?>
