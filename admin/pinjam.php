@@ -9,6 +9,9 @@ if(!isset($_SESSION['username'])){
 }else{
 include "header.php";
 include "function.php";
+$tgl_pinjam = date("Y-m-d");
+$tujuh_hari = strtotime("+7 day", strtotime($tgl_pinjam));
+$kembali = date("Y-m-d", $tujuh_hari);
 ?>
        <?php if(isset($_GET['r'])): ?>
                     <?php

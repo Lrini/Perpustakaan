@@ -105,28 +105,55 @@ if(!isset($_SESSION['user'])){
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-1">
           <div class="p-5">
-            <?php
-              $col = 4;
-              $koneksi = mysqli_connect("localhost","root","","perpus");
-             $qry = mysqli_query($koneksi, "SELECT * FROM buku,kategori WHERE buku.kode_kategori = kategori.kode_kategori AND kategori.kode_kategori=4 ");
-             
-             echo "<table align='center'><tr>"; 
-             $cnt = 0;
-             while ($w = mysqli_fetch_array($qry)) {
-             if ($cnt >= $col) {
-             echo "</tr><tr>";
-             $cnt = 0;
-             }
-             $cnt++;
-             echo "<td align=center valign=top><br />
-             <a id='galeri' href='../data/$w[gambar]' width='200' height='200' title='$w[nama_buku]'>
-             <img alt='galeri' src='../data/$w[gambar]' width='189' height='200' /></a><br />
-             <b>$w[nama_buku]</b><br>
-             <a href='pinjam.php?SIBN=<?=$w[SIBN];?>'class='btn btn-success'>Pinjam</a></td>";
-             }
-             echo "</tr></table>";
-            ?>
-             
+          <form action="" method="post" enctype="multipart/form-data">
+                <div class="card-body">
+                <div class="form-group">
+                    <label>Siswa</label>
+                        <select name= "nim" id="nim" class="form-control" type="text">
+                            <option>Siswa</option>
+                                                                
+                                    <?php
+                                       $koneksi= mysqli_connect("localhost","root","","perpus");
+                                        $data = mysqli_query($koneksi,"SELECT * FROM siswa ");
+                                        while ($sql = mysqli_fetch_array($data)) 
+                                            { ?>
+                                                <option value='<?php echo $sql['nim'] ?>'><?php echo $sql ['nim'] ?> | <?php echo $sql['nama'] ?></option>
+                                            <?php } ?>
+                                </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Buku</label>
+                        <select name= "SIBN" id="SIBN" class="form-control" type="text">
+                            <option>Buku</option>
+                                                                
+                                    <?php
+                                       $koneksi= mysqli_connect("localhost","root","","perpus");
+                                        $data = mysqli_query($koneksi,"SELECT * FROM buku ");
+                                        while ($sql = mysqli_fetch_array($data)) 
+                                            { ?>
+                                                <option value='<?php echo $sql['SIBN'] ?>'><?php echo $sql ['nama_buku'] ?> | <?php echo $sql['stock'] ?></option>
+                                            <?php } ?>
+                                </select>
+                  </div>
+                  <div class="form-group">
+                    <label> Tanggal Pinjam </label>
+                    <input class = "form-control" type="text" name="tgl_mulai" id="tgl" value="<?php echo $tgl_pinjam;?>" readonly />
+                  </div>
+                  <div class="form-group">
+                  <label>Limit Tanggal Pengembalian </label>
+                  <input class = "form-control" type="text" name="tgl_end" id="tgl" value="<?php echo $kembali;?>" readonly />
+                </div>
+                <div class="form-group">
+                  <label>Jumlah Buku</label>
+                      <input class="form-control" type ="number" name="stock" min="1" max="3" value= "1" required/>
+                    </select>
+                </div>
+                  <div class="form-group">
+                    <div class="card-footer">
+                    <button type="submit" name='simpan' value='simpan' class="btn btn-success mr-2">Save</button>
+                    </div>
+                </div>
+              </form>
           </div>
         </div>
       </div>
@@ -148,5 +175,4 @@ if(!isset($_SESSION['user'])){
 
 </html>
 <?php
-}
-?>
+}?>
