@@ -17,10 +17,10 @@ $cek = mysqli_num_rows($data);
 //cek object yang ditemukan
 $data2 = mysqli_fetch_array($data);
 if($cek > 0){
+    session_start ();
 	if($data2['status'] == 'aktif') {
-		session_start ();
-			$_SESSION['id'] = $data2 ['id_login'];
-			$_SESSION['name'] = $data2['username'];
+			$_SESSION['nim'] = $data2 ['nim'];
+			$_SESSION['user'] = $data2['user'];
         header("location:../perpustakaan/perpus/index.php");
     } else {
         header("location:index.php?pesan=gagal");
