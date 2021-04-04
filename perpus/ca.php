@@ -7,8 +7,7 @@ if(!isset($_SESSION['user'])){
   </script>
   <?php
 }else{
-include "header.php";
-include "function.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
