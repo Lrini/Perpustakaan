@@ -99,7 +99,26 @@ if(!isset($_SESSION['user'])){
     <div class="bg-circle-3 bg-circle"></div>
     <div class="bg-circle-4 bg-circle"></div>
   </header>
-
+  <?php if(isset($_GET['r'])): ?>
+                    <?php
+                        $r = $_GET['r'];
+                        if($r=='sukses'){
+                            $class='success';
+                        }else if($r=='updated'){
+                            $class='info';   
+                        }else if($r=='gagal'){
+                            $class='danger';   
+                        }else if($r=='added an account'){
+                            $class='success';   
+                        }else{
+                            $class='hide';
+                        }
+                    ?>
+                   <div role="alert" class="alert alert-<?php  echo $class?> ">
+                        
+                        <strong> <?php echo $r; ?>!</strong>    
+                    </div>
+                <?php endif; ?>
   <section>
     <div class="container">
       <div class="row align-items-center">
@@ -122,7 +141,7 @@ if(!isset($_SESSION['user'])){
              <a id='galeri' href='../data/$w[gambar]' width='200' height='200' title='$w[nama_buku]'>
              <img alt='galeri' src='../data/$w[gambar]' width='189' height='200' /></a><br />
              <b>$w[nama_buku]</b><br>
-             <a href='pinjam.php?SIBN=<?=$w[SIBN];?>'class='btn btn-success'>Pinjam</a></td>";
+             <a href='pinjam.php?SIBN=".$w['SIBN']."'class='btn btn-success'>Pinjam</a></td>";
              }
              echo "</tr></table>";
             ?>

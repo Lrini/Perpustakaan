@@ -123,7 +123,7 @@ if(!isset($_SESSION['user'])){
              <a id='galeri' href='../data/$w[gambar]' width='200' height='200' title='$w[nama_buku]'>
              <img alt='galeri' src='../data/$w[gambar]' width='189' height='200' /></a><br />
              <b>$w[nama_buku]</b><br>
-             <a href='pinjamca.php?kode_kategori=<?=$w[kode_kategori];?>'class='btn btn-success'>Pinjam</a></td>";
+             <a href='pinjam.php?SIBN=".$w['SIBN']."'class='btn btn-success'>Pinjam</a></td>";
              }
              echo "</tr></table>";
             ?>

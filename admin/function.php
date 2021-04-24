@@ -143,6 +143,7 @@
 		$sql=mysqli_query($kon,"insert into pinjaman (nim,SIBN,tgl_mulai,tgl_end,status,stock,terlambat) values ('$nim','$SIBN','$tgl_mulai','$tgl_end','pinjam','$stock','0 hari')" );
 		return mysqli_affected_rows($kon);
 	}
+
 //function untuk edit
 	function editbuku($data){
 		global $kon;
@@ -188,6 +189,14 @@
 		$n = date_create(date('Y-m-d'));
 		$m = date_format($n,'Y-m-d');
 		 $sql = mysqli_query($kon,"update pinjaman set status='kembali' where id_pinjam='$id'");
+		 $sql1 =mysqli_query($kon,"update pinjaman set stock = 0,tgl_kembali='$m' where id_pinjam = '$id'");
+		 return mysqli_affected_rows($kon);
+	
+	}
+
+	function konfirmasi($id){
+		global $kon;
+		 $sql = mysqli_query($kon,"update detail_pinjama set status='konfirmasi' where id='$id'");
 		 $sql1 =mysqli_query($kon,"update pinjaman set stock = 0,tgl_kembali='$m' where id_pinjam = '$id'");
 		 return mysqli_affected_rows($kon);
 	

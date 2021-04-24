@@ -74,6 +74,13 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="konfirmasi.php" class="nav-link">
+              <p>
+                 Konfirmasi 
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="../index.php" class="nav-link">
               <p>
                  Logout 

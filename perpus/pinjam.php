@@ -7,6 +7,7 @@ if(!isset($_SESSION['user'])){
   </script>
   <?php
 }else{
+  include "function.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,61 +105,74 @@ if(!isset($_SESSION['user'])){
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 order-lg-1">
-          <div class="p-5">
+          <div class="p-5" >
+          <table  cellpadding ="30">
+          <tr>
+          <td>
+          <?php
+          $koneksi = mysqli_connect('localhost','root','','perpus');
+          $id = $_GET['SIBN'];  
+          $sql = mysqli_query($koneksi,"select * from buku,kategori where buku.kode_kategori = kategori.kode_kategori and buku.SIBN='$id'");
+          while($data = mysqli_fetch_array($sql)){
+          ?>
           <form action="" method="post" enctype="multipart/form-data">
-                <div class="card-body">
-                <div class="form-group">
-                    <label>Siswa</label>
-                        <select name= "nim" id="nim" class="form-control" type="text">
-                            <option>Siswa</option>
-                                                                
-                                    <?php
-                                       $koneksi= mysqli_connect("localhost","root","","perpus");
-                                        $data = mysqli_query($koneksi,"SELECT * FROM siswa ");
-                                        while ($sql = mysqli_fetch_array($data)) 
-                                            { ?>
-                                                <option value='<?php echo $sql['nim'] ?>'><?php echo $sql ['nim'] ?> | <?php echo $sql['nama'] ?></option>
-                                            <?php } ?>
-                                </select>
-                  </div>
-                  <div class="form-group">
-                    <label>Buku</label>
-                        <select name= "SIBN" id="SIBN" class="form-control" type="text">
-                            <option>Buku</option>
-                                                                
-                                    <?php
-                                       $koneksi= mysqli_connect("localhost","root","","perpus");
-                                        $data = mysqli_query($koneksi,"SELECT * FROM buku ");
-                                        while ($sql = mysqli_fetch_array($data)) 
-                                            { ?>
-                                                <option value='<?php echo $sql['SIBN'] ?>'><?php echo $sql ['nama_buku'] ?> | <?php echo $sql['stock'] ?></option>
-                                            <?php } ?>
-                                </select>
-                  </div>
-                  <div class="form-group">
-                    <label> Tanggal Pinjam </label>
-                    <input class = "form-control" type="text" name="tgl_mulai" id="tgl" value="<?php echo $tgl_pinjam;?>" readonly />
-                  </div>
-                  <div class="form-group">
-                  <label>Limit Tanggal Pengembalian </label>
-                  <input class = "form-control" type="text" name="tgl_end" id="tgl" value="<?php echo $kembali;?>" readonly />
-                </div>
-                <div class="form-group">
-                  <label>Jumlah Buku</label>
-                      <input class="form-control" type ="number" name="stock" min="1" max="3" value= "1" required/>
-                    </select>
-                </div>
-                  <div class="form-group">
-                    <div class="card-footer">
-                    <button type="submit" name='simpan' value='simpan' class="btn btn-success mr-2">Save</button>
-                    </div>
-                </div>
-              </form>
+              <label>SIBN</label>
+                 <input type="text" class="form-control" name="SIBN" value="<?php echo $data ['SIBN'] ?>" readonly/>
+              <label>Nama Buku</label>
+                <input type="text" class="form-control" name="nama_buku" value="<?php echo $data ['nama_buku'] ?>" readonly/>
+              <label>Stock</label>
+                <input type="text" class="form-control" name="stock" value="<?php echo $data ['stock'] ?>" readonly/>
+              <label>Nama peminjam</label>
+              <select name= "nim" id="nim" class="form-control" type="text">
+                <option>Nama anda</option>
+                    <?php
+                      $koneksi = mysqli_connect('localhost','root','','perpus');
+                      $coba = mysqli_query($koneksi,"select * from siswa where user = '$_SESSION[user]'");
+                      while ($lagi = mysqli_fetch_array($coba)) { ?>
+                      <option value='<?php echo $lagi['nim'] ?>'><?php echo $lagi ['nim'] ?> | <?php echo $lagi['nama'] ?></option>
+                  <?php } ?>
+            </select>
+            <br>
+            <?php
+              if ($data['stock']> 0) {
+               echo' <button type="submit" name="simpan" value="simpan" class="btn btn-success mr-2">Save</button>';
+              } else {
+                echo'tidak bisa meminjam buku stock buku kosong';
+              }
+              
+            ?>
+           
+        </form>
+        </td>
+        <td>
+           <img src="../data/<?php echo $data['gambar']?>" width="150" height="190">
+        <?php
+          if(isset($_POST['simpan'])){
+            if(pinjamic ($_POST) > 0){
+                echo " 
+                     <script>
+                        document.location.href = 'ic.php?r=sukses';
+                    </script>";
+                    }else{
+                        echo " 
+                            <script>
+                                document.location.href = 'ic.php?r=gagal';
+                             </script>";
+                        }
+                 }
+          }
+        ?>
+         </td>
+        </tr>
+        </table>
           </div>
         </div>
       </div>
     </div>
   </section>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
   <!-- Footer -->
   <footer class="py-5 bg-black">
     <div class="container">
